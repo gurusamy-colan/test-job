@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+
+    margin: 0;
+    padding: 0;
+    /* background-image: url(./assets/images/O9FG4W0.jpg); */
+}
+
+.container {
+    padding: 2rem 0rem;
+}
+
+h4 {
+    margin: 2rem 0rem 1rem;
+}
+
+.table td , .table th{
+    vertical-align: middle !important;
+}
+
+table thead {
+    background-color: #002664;
+    color: white;
+}
+
+table {
+    background-color: #f5f7ff;
+    border-radius: 10px;
+    justify-content: center;
+}
+
+form {
+    max-width: 400px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.create-btn {
+    float: inline-end;
+}
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <div class="form-group">
+                <input type="text" class="form-control" id="searchInput" placeholder="Search...">
+            </div>
+        </div>
+        <div class="col-6">
+            <div>&nbsp;
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="create-btn">
+                <a href="{% url 'business_create' %}" type="button" class="btn btn-primary">
+                    Create Organisation
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-12">
+            <table class="table table-bordered">
+
+                <tbody>
+                {% if businesses|length == 0 %}
+                <tr>
+                    <h3>No Businesses Found</h3>
+                </tr>
+                {% else %}
+                <thead>
+                <tr>
+                    <th scope="col">Organisation Name</th>
+                    <th scope="col">Employee Size</th>
+                    <th scope="col">Owner Info</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                {% for business in businesses %}
+                <tr>
+                    <td>{{business.name}}</td>
+                    <td>{{business.employee_size}}</td>
+                    <td>{{business.owner_info}}</td>
+                    <td>{{business.business_address.city}},{{ business.business_address.country}}</td>
+                    <td>
+                        <a href="{% url 'business_get' business %}" type="button" class="btn btn-primary">
+                            <i class="far fa-eye"></i></a>
+
+                        <a href="{% url 'business_edit' business  %}" type="button" class="btn btn-success">
+                            <i class="fas fa-edit"></i></a>
+
+                        <a href="#" onclick="confirmDelete('{{ business }}')" class="btn btn-danger">
+                        <i class="far fa-trash-alt"></i>
+                    </a>
+                    </td>
+                </tr>
+
+                {% endfor %}
+                {% endif %}
+                <!-- <tr>
+                    <th scope="row">2</th>
+                    <td>Bootstrap Grid 4 Tutorial and Examples</td>
+                    <td>Cristina</td>
+                    <td>3.417</td>
+                    <td>
+                        <a href="./view.html" type="button" class="btn btn-primary"><i
+                                class="far fa-eye"></i></a>
+                        <a href="./edit.html" type="button" class="btn btn-success"><i
+                                class="fas fa-edit"></i></a>
+                        <a type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Bootstrap Flexbox Tutorial and Examples</td>
+                    <td>Cristina</td>
+                    <td>1.234</td>
+                    <td>
+                        <a href="./view.html" type="button" class="btn btn-primary"><i
+                                class="far fa-eye"></i></a>
+                        <a href="./edit.html" type="button" class="btn btn-success"><i
+                                class="fas fa-edit"></i></a>
+                        <a type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">4</th>
+                    <td>Bootstrap Flexbox Tutorial and Examples</td>
+                    <td>Cristina</td>
+                    <td>1.234</td>
+                    <td>
+                        <a href="./view.html" type="button" class="btn btn-primary"><i
+                                class="far fa-eye"></i></a>
+                        <a href="./edit.html" type="button" class="btn btn-success"><i
+                                class="fas fa-edit"></i></a>
+                        <a type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">5</th>
+                    <td>Bootstrap Flexbox Tutorial and Examples</td>
+                    <td>Cristina</td>
+                    <td>1.234</td>
+                    <td>
+                        <a href="./view.html" type="button" class="btn btn-primary"><i
+                                class="far fa-eye"></i></a>
+                        <a href="./edit.html" type="button" class="btn btn-success"><i
+                                class="fas fa-edit"></i></a>
+                        <a type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+                    </td>
+                </tr> -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+<script>
+    // search function 
+
+    $(document).ready(function () {
+        $("#searchInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("table tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+    });
+
+
+    // on click delete
+     function confirmDelete(businessId) {
+        var confirmation = confirm('Are you sure you want to delete this business?');
+        if (confirmation) {
+             var deleteUrl = '{% url 'business_delete' business_id=0 %}'.replace('0', businessId);
+            window.location.href = deleteUrl;
+        } else {
+            alert('Deletion canceled');
+        }
+    }
+
+
+</script>
+
+
+</html>

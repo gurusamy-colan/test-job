@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+
+    <title>Business Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            padding: 0;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        strong {
+            font-weight: bold;
+        }
+        
+    </style>
+</head>
+<body>
+<h1>Business Details</h1>
+<div>
+    <p><strong>Name:</strong> {{ business.name }}</p>
+    <p><strong>Employee Size:</strong> {{ business.employee_size }}</p>
+    <p><strong>Owner Information:</strong> {{ business.owner_info }}</p>
+    <p><strong>Address:</strong></p>
+    <ul>
+        <li><strong>Street:</strong> {{ business.street }}</li>
+        <li><strong>City:</strong> {{ business.city }}</li>
+        <li><strong>Country:</strong> {{ business.country }}</li>
+    </ul>
+    <p><strong>Investor Type:</strong> {{ business.investor_type }}</p>
+    <p><strong>Investor Stages:</strong></p>
+    <ul>
+        {% for stage in business.investor_stage %}
+        <li>{{ stage }}</li>
+        {% endfor %}
+    </ul>
+    <button id="closeButton" class="btn btn-danger"><i class="far fa-close"></i>Close</button>
+</div>
+<script>
+    //  To handle the close button click event
+    document.getElementById("closeButton").addEventListener("click", function() {
+        // Navigate back to the index page when the close button is clicked
+        window.location.href = "{% url 'business_list' %}";
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Organization</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+</head>
+<body>
+<div class="container">
+    <h2>Create Organization </h2>
+    <form method="post" action="">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+        </div>
+        <div class="form-group">
+            <label for="employee_size">Employee Size:</label>
+            <input type="number" class="form-control" id="employee_size" placeholder="Employee Size"
+                   name="employee_size" min="0">
+        </div>
+        <div class="form-group">
+            <label for="owner_info">Owner Information:</label>
+            <input type="text" class="form-control" id="owner_info" placeholder="Enter owner information"
+                   name="owner_info">
+        </div>
+        <div class="form-group">
+            <label for="street">Street:</label>
+            <input type="text" class="form-control" id="street" placeholder="Street" name="street">
+        </div>
+        <div class="form-group">
+            <label for="city">City:</label>
+            <input type="text" class="form-control" id="city" placeholder="City" name="city">
+        </div>
+        <div class="form-group">
+            <label for="country">Country:</label>
+            <input type="text" class="form-control" id="country" placeholder="Country" name="country">
+        </div>
+        <div class="form-group">
+            <label for="investor_type">Investor Type:</label>
+            {{ form.investor_type }}
+        </div>
+        <div class="form-group">
+            <label for="investor_stage">Investor Stage:</label>
+            {{ form.investor_stage}}
+        </div>
+
+        <button type="submit" class="btn btn-primary"><i class="far fa-save"></i> Save</button>
+        <button id="closeButton" class="btn btn-danger"><i class="far fa-close"></i>Close</button>
+    </form>
+</div>
+<script>
+    //  To handle the close button click event
+    document.getElementById("closeButton").addEventListener("click", function() {
+        // Navigate back to the index page when the close button is clicked
+        window.location.href = "{% url 'business_list' %}";
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
